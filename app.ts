@@ -15,23 +15,39 @@ const app = express();
 // }));
 
 
-app.use(cors({
-    origin: function (origin, callback) {
-      const allowedOrigins = [
-        'https://chinta-acdemy-frontend-whhp.vercel.app',
-        'http://localhost:3000',
-      ];
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
+// app.use(cors({
+//     origin: function (origin, callback) {
+//       const allowedOrigins = [
+//         'https://chinta-acdemy-frontend-whhp.vercel.app',
+//         'http://localhost:3000',
+//       ];
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true);
+//       } else {
+//         callback(new Error('Not allowed by CORS'));
+//       }
+//     },
+//     credentials: true,
+//   }));
+
+// CORS configuration
+const corsOptions = {
+    origin: [
+      'https://chinta-acdemy-frontend-whhp.vercel.app',
+      'http://localhost:3000',
+    ],
     credentials: true,
-  }));
+    optionsSuccessStatus: 200 // For legacy browser support
+  };
+  
+  // Apply CORS middleware
+  app.use(cors(corsOptions));
+  
+  // Handle preflight requests for all routes
+  app.options('*', cors(corsOptions));
   
   // Add this middleware to handle preflight requests
-  app.options('*', cors());
+//   app.options('*', cors());
   
 
 app.use(express.json());
