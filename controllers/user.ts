@@ -60,9 +60,10 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
    res
     .cookie("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
+      secure: true,
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      domain: process.env.NODE_ENV === "production" ? process.env.DOMAIN : undefined,
     })
     .json({ success: true, user: user, token:token });
 };

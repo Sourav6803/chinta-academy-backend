@@ -9,10 +9,10 @@ import cookieParser from 'cookie-parser';
 
 const app = express();
 
-// app.use(cors({
-//     origin: ["https://chinta-acdemy-frontend-whhp.vercel.app","http://localhost:3000"],
-//     credentials: true
-// }));
+app.use(cors({
+    origin: ["https://chinta-acdemy-frontend-whhp.vercel.app","http://localhost:3000"],
+    credentials: true
+}));
 
 
 // app.use(cors({
@@ -41,26 +41,26 @@ const app = express();
 //   };
  
 
-app.use((req, res, next): any=> {
-    const allowedOrigins = [
-      'https://chinta-acdemy-frontend-whhp.vercel.app',
-      'http://localhost:3000',
-    ];
+// app.use((req, res, next): any=> {
+//     const allowedOrigins = [
+//       'https://chinta-acdemy-frontend-whhp.vercel.app',
+//       'http://localhost:3000',
+//     ];
     
-    const origin = req.headers.origin;
-    if (origin && allowedOrigins.includes(origin)) {
-      res.setHeader('Access-Control-Allow-Origin', origin);
-    }
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     const origin = req.headers.origin;
+//     if (origin && allowedOrigins.includes(origin)) {
+//       res.setHeader('Access-Control-Allow-Origin', origin);
+//     }
+//     res.setHeader('Access-Control-Allow-Credentials', 'true');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     
-    if (req.method === 'OPTIONS') {
-      return res.sendStatus(200);
-    }
+//     if (req.method === 'OPTIONS') {
+//       return res.sendStatus(200);
+//     }
     
-    next();
-  });
+//     next();
+//   });
 
    
   // Apply CORS middleware
