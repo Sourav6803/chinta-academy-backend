@@ -10,7 +10,7 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 app.use(cors({
-    origin: ["chinta-acdemy-frontend-whhp.vercel.app","http://localhost:3000"],
+    origin: ["https://chinta-acdemy-frontend-whhp.vercel.app","http://localhost:3000"],
     credentials: true
 }));
 app.use(express.json());
