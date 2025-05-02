@@ -110,12 +110,13 @@ export const assignToUser = async (req: Request<{}, {}, AssignmentRequest>, res:
   }
 };
 
-export const getAssignmentsByUser = async (req: Request<UserParams>, res: Response) => {
+export const getAssignmentsByUser = async (req: Request, res: Response):Promise<void> => {
   try {
     const { userId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res.status(400).json({ message: 'Invalid user ID format' });
+       res.status(400).json({ message: 'Invalid user ID format' });
+       return
     }
 
     const assignments = await Assignment.find({ 
@@ -138,20 +139,56 @@ export const getAssignmentsByUser = async (req: Request<UserParams>, res: Respon
     .lean();
 
     if (assignments.length === 0) {
-      return res.status(200).json({
+       res.status(200).json({
         message: 'No assignments found for this user',
         data: []
       });
+      return
     }
 
-    return res.json({
+     res.json({
       userId,
       count: assignments.length,
       assignments
     });
+    return
 
   } catch (error) {
     console.error('Error fetching assignments:', error);
-    return res.status(500).json({ message: 'Internal server error' });
+     res.status(500).json({ message: 'Internal server error' });
+     return
   }
 };
+
+
+export const allAssignments = async (req: Request, res: Response):Promise<void> => {
+  try {
+    const assignments = await Assignment.find()
+      .populate('userId', 'name email')
+      .populate('goalId', 'name')
+      .populate('courseId', 'name')
+      .populate('topicId', 'name')
+      .select('_id userId goalId courseId topicId createdAt')
+      .sort({ createdAt: -1 }) // Newest first
+      .lean();
+
+    if (assignments.length === 0) {
+       res.status(200).json({
+        message: 'No assignments found',
+        data: []
+      });
+      return
+    }
+
+     res.json({
+      count: assignments.length,
+      assignments
+    });
+    return
+
+  } catch (error) {
+    console.error('Error fetching all assignments:', error);
+     res.status(500).json({ message: 'Internal server error' });
+     return
+  }
+}

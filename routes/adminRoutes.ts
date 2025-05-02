@@ -4,7 +4,7 @@ import { createGoal, getGoals } from '../controllers/goal';
 import {isAuthenticated, isAdmin } from '../middleware/auth';
 import { createCourse, getCoursesByGoal, getAllCourses } from '../controllers/course';
 import { createTopic, getTopicsByCourse, getAllTopics } from '../controllers/topics';
-import { assignToUser } from '../controllers/assignments';
+import { allAssignments, assignToUser, getAssignmentsByUser } from '../controllers/assignments';
 
 const adminroutes = express.Router();
 
@@ -29,6 +29,7 @@ adminroutes.get('/all-topics', getAllTopics);
 
 // // Assign
 adminroutes.post('/assign', isAdmin, assignToUser);
-// adminroutes.get('/assign/:userId', isAdmin, getAssignmentsByUser);
+adminroutes.get('/assign/:userId', isAdmin, getAssignmentsByUser);
+adminroutes.get('/all-assignments', isAdmin, allAssignments);
 
 export default adminroutes;
