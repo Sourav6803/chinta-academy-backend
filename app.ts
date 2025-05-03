@@ -10,7 +10,7 @@ import cookieParser from 'cookie-parser';
 const app = express();
 
 app.use(cors({
-    origin: ["https://chinta-acdemy-frontend-whhp.vercel.app","http://localhost:3000"],
+    origin: "https://chinta-acdemy-frontend-whhp.vercel.app",
     credentials: true
 }));
 
@@ -70,7 +70,12 @@ app.use(cors({
 //   app.options('*', cors(corsOptions));
   
   // Add this middleware to handle preflight requests
-  app.options('*', cors());
+  app.options('*', cors({
+    origin: "https://chinta-acdemy-frontend-whhp.vercel.app",
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Authorization',
+  }));
   
 
 app.use(express.json());

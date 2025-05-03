@@ -38,12 +38,16 @@ const login = async (req, res, next) => {
     if (!isMatch)
         res.status(401).json({ message: "Invalid credentials" });
     const token = (0, generateToken_1.generateToken)(user._id.toString(), user.role);
+    console.log("Token", token);
     res
         .cookie("token", token, {
         httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        secure: true,
+        sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        domain: process.env.NODE_ENV === "production" ? process.env.DOMAIN : undefined,
+        // domain: 'https://chinta-acdemy-frontend-whhp.vercel.app',
+        path: "/",
     })
         .json({ success: true, user: user, token: token });
 };

@@ -57,6 +57,9 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 
   const token = generateToken(user._id.toString(), user.role);
 
+  console.log("Token", token);
+
+  
    res
     .cookie("token", token, {
       httpOnly: true,
@@ -67,6 +70,7 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
       domain: 'https://chinta-acdemy-frontend-whhp.vercel.app',
       path: "/", 
     })
+
     .json({ success: true, user: user, token:token });
 };
 

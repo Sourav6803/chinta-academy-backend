@@ -46,12 +46,15 @@ const adminlogin = async (req, res, next) => {
             return;
         }
         const token = (0, generateToken_1.generateToken)(admin._id.toString(), admin.role);
+        console.log("token", token);
         res
             .cookie("adminToken", token, {
             httpOnly: true,
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
             sameSite: "none",
             secure: true,
+            domain: "https://chinta-acdemy-frontend-whhp.vercel.app",
+            path: "/"
         })
             .status(200)
             .json({
