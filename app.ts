@@ -18,10 +18,22 @@ app.use((req, res, next) => {
 //   allowedHeaders: ['Content-Type', 'Authorization'],
 // };
 
+// app.use(cors({
+//     origin: "https://chinta-acdemy-frontend-whhp.vercel.app",
+//     credentials: true
+// }));
+
 app.use(cors({
-    origin: "https://chinta-acdemy-frontend-whhp.vercel.app",
-    credentials: true
+  origin: 'https://chinta-acdemy-frontend-whhp.vercel.app',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+// app.options('*', cors({
+//   origin: 'https://chinta-acdemy-frontend-whhp.vercel.app',
+//   credentials: true,
+// }));
 
 
 // app.use(cors({
@@ -63,20 +75,6 @@ app.use(cors({
 //     next();
 //   });
 
-
-// CORS configuration
-const corsOptions = {
-  origin: [
-    'https://chinta-acdemy-frontend-whhp.vercel.app',
-    'http://localhost:3000',
-  ],
-  credentials: true,
-};
-   
-  
-  // Add this middleware to handle preflight requests
- 
-  
 
 app.use(express.json());
 app.use(cookieParser())
