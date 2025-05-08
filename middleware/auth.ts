@@ -35,8 +35,6 @@ export const isAdmin = async (req: AuthRequest, res: Response, next: NextFunctio
     try {
       const { adminToken } = req.cookies;
 
-      
-  
       if (!adminToken) {
          res.status(401).json({ message: 'Admin authentication required' });
          return;

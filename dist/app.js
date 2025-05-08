@@ -10,7 +10,7 @@ const adminRoutes_1 = __importDefault(require("./routes/adminRoutes"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)({
-    origin: ["https://chinta-acdemy-frontend-whhp.vercel.app", "http://localhost:3000"],
+    origin: "https://chinta-acdemy-frontend-whhp.vercel.app",
     credentials: true
 }));
 // app.use(cors({
@@ -58,7 +58,12 @@ app.use((0, cors_1.default)({
 // Handle preflight requests for all routes
 //   app.options('*', cors(corsOptions));
 // Add this middleware to handle preflight requests
-app.options('*', (0, cors_1.default)());
+app.options('*', (0, cors_1.default)({
+    origin: "https://chinta-acdemy-frontend-whhp.vercel.app",
+    credentials: true,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    allowedHeaders: 'Content-Type, Authorization',
+}));
 app.use(express_1.default.json());
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.urlencoded({ extended: true }));

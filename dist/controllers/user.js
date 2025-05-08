@@ -45,8 +45,8 @@ const login = async (req, res, next) => {
         secure: true,
         sameSite: "none",
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        domain: process.env.NODE_ENV === "production" ? process.env.DOMAIN : undefined,
-        // domain: 'https://chinta-acdemy-frontend-whhp.vercel.app',
+        // domain: process.env.NODE_ENV === "production" ? process.env.DOMAIN : undefined,
+        domain: 'https://chinta-acdemy-frontend-whhp.vercel.app',
         path: "/",
     })
         .json({ success: true, user: user, token: token });

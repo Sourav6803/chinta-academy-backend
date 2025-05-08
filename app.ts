@@ -1,13 +1,22 @@
 import express, { Application,NextFunction, Request, Response } from 'express';
 import cors from 'cors';
-
-
 import authRoutes from './routes/authRoutes';
 import adminroutes from './routes/adminRoutes';
 import cookieParser from 'cookie-parser';
 
-
 const app = express();
+
+app.use((req, res, next) => {
+  console.log("Incoming path:", req.path);
+  next();
+});
+
+// const corsOptions = {
+//   origin: "https://chinta-acdemy-frontend-whhp.vercel.app",
+//   credentials: true,
+//   methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+// };
 
 app.use(cors({
     origin: "https://chinta-acdemy-frontend-whhp.vercel.app",
@@ -30,15 +39,7 @@ app.use(cors({
 //     credentials: true,
 //   }));
 
-// CORS configuration
-// const corsOptions = {
-//     origin: [
-//       'https://chinta-acdemy-frontend-whhp.vercel.app',
-//       'http://localhost:3000',
-//     ],
-//     credentials: true,
-//     optionsSuccessStatus: 200 // For legacy browser support
-//   };
+
  
 
 // app.use((req, res, next): any=> {
@@ -62,25 +63,24 @@ app.use(cors({
 //     next();
 //   });
 
+
+// CORS configuration
+const corsOptions = {
+  origin: [
+    'https://chinta-acdemy-frontend-whhp.vercel.app',
+    'http://localhost:3000',
+  ],
+  credentials: true,
+};
    
-  // Apply CORS middleware
-//   app.use(cors(corsOptions));
-  
-  // Handle preflight requests for all routes
-//   app.options('*', cors(corsOptions));
   
   // Add this middleware to handle preflight requests
-  app.options('*', cors({
-    origin: "https://chinta-acdemy-frontend-whhp.vercel.app",
-    credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type, Authorization',
-  }));
+ 
   
 
 app.use(express.json());
 app.use(cookieParser())
-app.use(express.urlencoded({ extended: true }));
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminroutes);
