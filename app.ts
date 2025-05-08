@@ -54,26 +54,26 @@ app.use(cors({
 
  
 
-// app.use((req, res, next): any=> {
-//     const allowedOrigins = [
-//       'https://chinta-acdemy-frontend-whhp.vercel.app',
-//       'http://localhost:3000',
-//     ];
+app.use((req, res, next): any=> {
+    const allowedOrigins = [
+      'https://chinta-acdemy-frontend-whhp.vercel.app',
+      'http://localhost:3000',
+    ];
     
-//     const origin = req.headers.origin;
-//     if (origin && allowedOrigins.includes(origin)) {
-//       res.setHeader('Access-Control-Allow-Origin', origin);
-//     }
-//     res.setHeader('Access-Control-Allow-Credentials', 'true');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    const origin = req.headers.origin;
+    if (origin && allowedOrigins.includes(origin)) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     
-//     if (req.method === 'OPTIONS') {
-//       return res.sendStatus(200);
-//     }
+    if (req.method === 'OPTIONS') {
+      return res.sendStatus(200);
+    }
     
-//     next();
-//   });
+    next();
+  });
 
 
 app.use(express.json());
